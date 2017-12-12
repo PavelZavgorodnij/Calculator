@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <malloc.h>
+//#################################################################################
 double Extr(double A, double B, int min)
 {
 	if((A - B) * min > 0)
@@ -8,6 +9,7 @@ double Extr(double A, double B, int min)
 	else
 		return A;
 }
+//#################################################################################
 int mod2(int A)
 {
 	if(A % 2 == 0)
@@ -15,6 +17,7 @@ int mod2(int A)
 	else
 		return -1;
 }
+//#################################################################################
 double** ElementarySwap(int m, int n, double** A, int s1, int s2, int stolb)
 {
 	double **C;
@@ -241,6 +244,109 @@ double Determinant(int n, double** A)
 	
 }
 //#########################################################################################
+double Trace(int n, double** A)
+{
+	double Tr = 0;
+	int i;
+	for(i = 0; i < n; i ++)
+		Tr += A[i][i];
+	return Tr;
+}
+//#########################################################################################
+double** Obratnaja(int n, double** A)
+{
+	double **C;
+	C = malloc(n * sizeof(double *));
+	int i,j;
+	for(i = 0; i < n; i++) 
+		C[i] = (double *)malloc(n * sizeof(double));
+	for(i = 0; i < n; i++) 
+		for(j = 0; j < n; j++)
+			C[i][j] = A[i][j];
+	//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+	double **E;
+	E = malloc(n * sizeof(double *));
+	for(i = 0; i < n; i++) 
+		E[i] = (double *)malloc(n * sizeof(double));
+	for(i = 0; i < n; i++) 
+		for(j = 0; j < n; j++)
+			if (i == j)
+				E[i][j] = 1;
+			else
+				E[i][j] = 0;
+	//^^^^^^^^^^^^^^^^^^^pryamoj hod^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+	int left = 0;
+	int top = 0;
+	while (left < n && top < n)
+	{
+		int left2 = left;
+		while (left2 < n)
+		{
+			int NONULL = 0;
+			for(i = top; i < n; i ++)
+				if(C[i][left2] != 0)
+				{
+					NONULL = 1;
+					E = ElementarySwap(n, n, E, top, i, 0);
+					C = ElementarySwap(n, n, C, top, i, 0);
+					E = ElementaryMulty(n, n, E, top, 1 / C[top][left2], 0);					
+					C = ElementaryMulty(n, n, C, top, 1 / C[top][left2], 0);
+					for(j = top + 1; j < n; j ++)
+					{
+						E = ElementaryCombo(n, n, E, j, top, - C[j][left2], 0);	
+						C = ElementaryCombo(n, n, C, j, top, - C[j][left2], 0);											
+					}
+					break;
+				}
+			left2 ++;
+			if(NONULL > 0)
+				break;
+		}
+		left = left2;
+		top ++;	
+	}
+	//^^^^^^^^^^^^^^^^^^^^^^^^^obratnij hod^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+	left = n - 1;
+	while (left >= 0)
+	{
+		int left2 = left;
+		while (left2 >= 0)
+		{
+			int NONULL = 0;
+			for(i = n - 1; i >= 0; i --)
+				if(C[i][left2] != 0)
+				{
+					NONULL = 1;
+					for(j = i - 1; j >= 0; j --)
+					{
+						E = ElementaryCombo(n, n, E, j, i, - C[j][left2], 0);
+						C = ElementaryCombo(n, n, C, j, i, - C[j][left2], 0);	
+					}
+					break;
+				}
+			left2 --;
+			if(NONULL > 0)
+				break;
+		}
+		left = left2;
+	}
+	//^^^^^^^^^^^^^^^^^^^^^^^^^give back the memory^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+	for(i = 0; i < n; i++) 
+		for(j = 0; j < n; j++)
+			A[i][j] = E[i][j];
+	for(i = 0; i < n; i++) 
+	{
+  		free(E[i]);
+	}
+	free(E);
+	for(i = 0; i < n; i++) 
+	{
+  		free(C[i]);
+	}
+	free(C);
+	return A;	
+}
+//#########################################################################################
 int main()
 {
 	int m, n;
@@ -254,7 +360,7 @@ int main()
 		for(j = 0; j < n; j++)
 			scanf("%lf", &C[i][j]);	
 	printf("\ndet(A) = %lf\n\n", Determinant(n, C));
-	C = Gauss(m, n, C);	
+	C = Obratnaja(n, C);	
 	for(i = 0; i < m; i++) 
 	{
 		for(j = 0; j < n; j++)
@@ -271,18 +377,3 @@ int main()
 		free(C);
 	return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
