@@ -162,7 +162,7 @@ int main()
 	g = fopen("NewCalc.out", "w");
 	for (i = 0; i < lalala; i ++)
 	{
-		fscanf(f, "%s", &str);
+		fscanf(f, "%s", str);
 		struct Frac fa = Process2(0, strlen(str));
 		if (fa.b != 1)
 			fprintf(g, "%d/%d\n", fa.a, fa.b);
