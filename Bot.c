@@ -1,3 +1,5 @@
+#include "FuncFloat.c"
+#include "Functions.c"
 #include "SLE.c"
 #include "canonic_2.c"
 #include "CALC.c"
