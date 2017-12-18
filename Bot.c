@@ -1,16 +1,18 @@
 #include "Functions.c"
+#include "FuncFloat.c"
 #include "SLE.c"
 #include "canonic_2.c"
 #define MAXLENGTH 100
 int HELP()
 {
 	printf("\nexit -- to leave the programme;\nmatrix -- working with matrixes;\nhelp -- help;\nabout -- autors;\ncanonic -- canonic;\ncalc -- calculations;\nlong -- long numbers;\n");
-	printf("sle -- solution of system of linear equations");
+	printf("sle -- solution of system of linear equations\nfunction -- some functions with float arguments\n");
 	return 1;
 }
 int ABOUT()
 {
-	printf("**********************************\n*	Created by PAVELLL	 *\n**********************************\n");
+	printf("*****\t\t\tAUTHORS\t\t\t*****\n");
+	printf("*****\tPAVELLL\n*****\tMICHAEL\n*****\tORLOV\n");
 	return 1;
 }
 int Bot(char* Command)
@@ -31,6 +33,8 @@ int Bot(char* Command)
 		return LONG();
 	if(Command[0] == 's' && Command[1] == 'l' && Command[2] == 'e')
 		return SLE();
+	if(Command[0] == 'f' && Command[1] == 'u' && Command[2] == 'n' && Command[3] == 'c' && Command[4] == 't' && Command[5] == 'i' && Command[6] == 'o' && Command[7] == 'n')
+		return FUNCTION();
 	return 0;
 }
 int main()
