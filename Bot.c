@@ -1,8 +1,11 @@
 #include "Functions.c"
+#include "SLE.c"
+#include "canonic.c"
 #define MAXLENGTH 100
 int HELP()
 {
-	printf("\nexit -- to leave the programme;\nmatrix -- working with matrixes;\nhelp -- help;\nabout -- autors;\ncanonic -- canonic;\ncalc -- calculations;\nlong -- long numbers.\n");
+	printf("\nexit -- to leave the programme;\nmatrix -- working with matrixes;\nhelp -- help;\nabout -- autors;\ncanonic -- canonic;\ncalc -- calculations;\nlong -- long numbers;\n");
+	printf("sle -- solution of system of linear equations");
 	return 1;
 }
 int ABOUT()
@@ -21,11 +24,13 @@ int Bot(char* Command)
 	if(Command[0] == 'a' && Command[1] == 'b' && Command[2] == 'o' && Command[3] == 'u' && Command[4] == 't')
 		return ABOUT();
 	if(Command[0] == 'c' && Command[1] == 'a' && Command[2] == 'n' && Command[3] == 'o' && Command[4] == 'n' && Command[5] == 'i' && Command[6] == 'c')
-		return CANONIC();
+		return CANONIC_2();
 	if(Command[0] == 'c' && Command[1] == 'a' && Command[2] == 'l' && Command[3] == 'c')
 		return CALC();
 	if(Command[0] == 'l' && Command[1] == 'o' && Command[2] == 'n' && Command[3] == 'g')
 		return LONG();
+	if(Command[0] == 's' && Command[1] == 'l' && Command[2] == 'e')
+		return SLE();
 	return 0;
 }
 int main()

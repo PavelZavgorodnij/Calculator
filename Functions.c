@@ -898,9 +898,3 @@ int LONG()
 	printf("\n");
 	return 1;
 }
-
-
-
-
-
-
