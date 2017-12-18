@@ -1,6 +1,6 @@
 #include "Functions.c"
 #include "SLE.c"
-#include "canonic.c"
+#include "canonic_2.c"
 #define MAXLENGTH 100
 int HELP()
 {
