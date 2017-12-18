@@ -366,20 +366,23 @@ int MATRIX()
 		for(j = 0; j < n; j++)
 			scanf("%lf", &C[i][j]);	
 	printf("\ndet(A) = %lf\n\n", Determinant(n, C));
-	printf("Inverse matrix:\n");
-	C = Obratnaja(n, C);	
-	for(i = 0; i < m; i++) 
+	if(Determinant(n, C) != 0)
 	{
-		for(j = 0; j < n; j++)
-			printf("%lf ", C[i][j]);
-		printf("\n");
+		printf("Inverse matrix:\n");
+		C = Obratnaja(n, C);	
+		for(i = 0; i < m; i++) 
+		{
+			for(j = 0; j < n; j++)
+				printf("%lf ", C[i][j]);
+			printf("\n");
+		}
 	}
 	printf("\n");
 	printf("rg(A) = %d", MatrixRange(m, n, C));
 	printf("\n\n");
 	for(i = 0; i < m; i++) 
 	{
-  		 	free(C[i]);
+  		 free(C[i]);
 	}
 	free(C);
 	return 1;
