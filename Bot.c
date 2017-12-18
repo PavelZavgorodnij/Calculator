@@ -1,10 +1,10 @@
+#include "FuncFloat.c"
 #include "Functions.c"
 #include "SLE.c"
 #include "canonic_2.c"
 #include "CALC.c"
 #include "LONG.c"
 #include "MATRIX.c"
-#include "FuncFloat.c"
 #define MAXLENGTH 100
 int HELP()
 {
