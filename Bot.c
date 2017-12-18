@@ -2,7 +2,7 @@
 #define MAXLENGTH 100
 int HELP()
 {
-	printf("\nexit -- to leave the programme;\nmatrix -- working with matrixes;\nhelp -- help;\nabout -- autors;\ncanonic -- canonic.\n");
+	printf("\nexit -- to leave the programme;\nmatrix -- working with matrixes;\nhelp -- help;\nabout -- autors;\ncanonic -- canonic;\ncalc -- calculations;\nlong -- long numbers.\n");
 	return 1;
 }
 int ABOUT()
@@ -24,6 +24,8 @@ int Bot(char* Command)
 		return CANONIC();
 	if(Command[0] == 'c' && Command[1] == 'a' && Command[2] == 'l' && Command[3] == 'c')
 		return CALC();
+	if(Command[0] == 'l' && Command[1] == 'o' && Command[2] == 'n' && Command[3] == 'g')
+		return LONG();
 	return 0;
 }
 int main()
